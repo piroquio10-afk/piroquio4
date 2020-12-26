@@ -20,7 +20,6 @@ function PortfolioPage() {
                 console.log("Client: Loaded portfolio data", data);
                 setPortfolioData(data);
             })
-
     }
 
     function renderPortfolioRow(item, index) {
@@ -28,8 +27,8 @@ function PortfolioPage() {
           <tr key={index}>
             <td>{item.ticker}</td>
             <td>{item.n_holding}</td>
-            <td>{item.current_price}</td>
-            <td>{item.current_total}</td>
+            <td>${item.current_price}</td>
+            <td>${item.current_total}</td>
           </tr>
         )
       }
@@ -39,7 +38,6 @@ function PortfolioPage() {
         // Fetch portfolio data
         getPortfolio()
     }, []);
-
 
 
     return (
