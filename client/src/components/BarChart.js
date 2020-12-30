@@ -32,6 +32,7 @@ function BarChart(props) {
     console.log("DATA BARCHART IS", data)
 
     let maxY = d3.max(data, function (d) { return parseFloat(d.current_total) })
+    let minY = d3.min(data, function (d) { return parseFloat(d.current_total) })
 
     const svg = d3.select(ref.current)
       .attr("width", width + margin.left + margin.right)
@@ -59,9 +60,16 @@ function BarChart(props) {
       .style("text-anchor", "end");
 
     // Add Y axis
-    var y = d3.scaleLinear()
+    if (props.allowNegative) {
+      var y = d3.scaleLinear()
+      .domain([minY, maxY])
+      .range([height, 0]);
+    } else {
+      var y = d3.scaleLinear()
       .domain([0, maxY])
       .range([height, 0]);
+    }
+
     svg.append("g")
       .call(
       d3.axisLeft(y)
